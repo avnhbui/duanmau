@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="THEM THU THU"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/txtMaTT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhap ma thu thu"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"/>
+        <EditText
+            android:id="@+id/txtTenTT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhap ten thu thu"
+            android:layout_marginHorizontal="15dp"
+            android:padding="10dp"/>
+        <EditText
+            android:id="@+id/txtMatKhau"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhap mat khau"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:inputType="textPassword"
+            android:padding="10dp"/>
+        <EditText
+            android:id="@+id/txtMatKhau_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Xac nhan mat khau"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"/>
+        <Button
+            android:id="@+id/btnThem_TT"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="Them"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="#448AFF"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

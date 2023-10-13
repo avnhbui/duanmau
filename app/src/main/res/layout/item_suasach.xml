@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:paddingHorizontal="10dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPDATE"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/lblMaSach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mã Sách: "
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="15dp"
+            android:textColor="#FF0000"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Loại Sách"
+            android:paddingHorizontal="20dp"
+            android:textColor="#000000"/>
+        <Spinner
+            android:id="@+id/spnLoaiSach_Up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="5dp"/>
+        <EditText
+            android:id="@+id/txtTenSach_Up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên sách"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"/>
+        <EditText
+            android:id="@+id/txtGiaThue_Up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập giá thuê"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"/>
+            <Button
+                android:id="@+id/btnUpdate_S"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lưu"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="end"
+                android:textColor="#FFFFFF"
+                android:background="#448AFF"
+                android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
