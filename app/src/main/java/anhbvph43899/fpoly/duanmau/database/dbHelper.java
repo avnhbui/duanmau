@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 public class dbHelper extends SQLiteOpenHelper {
 
     private static final String dbName = "QLTV";
-    private static final int version = 2;
+    private static final int version = 4;
 
     public dbHelper(@Nullable Context context) {
         super(context, dbName, null, version);
@@ -43,8 +43,11 @@ public class dbHelper extends SQLiteOpenHelper {
                 "maSach integer primary key autoincrement, " +
                 "tenSach text not null, " +
                 "giaThue integer not null, " +
-                "maLoai integer REFERENCES LoaiSach(maLoai))";
+                "maLoai integer REFERENCES LoaiSach(maLoai)," +
+                "namXB integer not null)";
         db.execSQL(Sach);
+        String ThemSach = "INSERT INTO Sach VALUES (1,'Doraemon', 20000, 1, 2003)";
+        db.execSQL(ThemSach);
         //phieumuon
         String PhieuMuon= "CREATE TABLE PhieuMuon(" +
                 "maPhieuMuon integer primary key autoincrement, " +

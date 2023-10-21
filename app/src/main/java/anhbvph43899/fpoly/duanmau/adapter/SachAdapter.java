@@ -40,7 +40,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.ViewHolder>{
     PhieuMuonDAO phieuMuonDAO;
     Sach indexsach;
     int index;
-    EditText txtTenSach, txtGiaThue;
+    EditText txtTenSach, txtGiaThue, txtNamXB_Up;
     TextView lblMaSach;
     Spinner spnLoaiSach;
 
@@ -64,6 +64,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.ViewHolder>{
         holder.tvmasach.setText(String.valueOf(list.get(position).getMaSach()));
         holder.tvtensach.setText(list.get(position).getTenSach());
         holder.tvgiaThue.setText(list.get(position).getGiaThue() + " VNĐ");
+        holder.tvnamxb.setText(String.valueOf(list.get(position).getNamXB()));
         holder.tvloaisach.setText(String.valueOf(list.get(position).getTenLoai()));
         holder.btnxoa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,10 +88,11 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvmasach, tvtensach, tvloaisach, tvgiaThue;
+        TextView tvmasach, tvtensach, tvloaisach, tvgiaThue, tvnamxb;
         ImageButton btnsua, btnxoa;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvnamxb = itemView.findViewById(R.id.tvnamxb);
             tvmasach = itemView.findViewById(R.id.tvmasach);
             tvtensach = itemView.findViewById(R.id.tvtensach);
             tvloaisach = itemView.findViewById(R.id.tvloaisach);
@@ -138,6 +140,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.ViewHolder>{
         lblMaSach = view.findViewById(R.id.lblMaSach);
         txtTenSach = view.findViewById(R.id.txtTenSach_Up);
         txtGiaThue = view.findViewById(R.id.txtGiaThue_Up);
+        txtNamXB_Up = view.findViewById(R.id.txtNamXB_Up);
         spnLoaiSach = view.findViewById(R.id.spnLoaiSach_Up);
 
         lblMaSach.setText("Mã sách: " + indexsach.getMaSach());
@@ -158,6 +161,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.ViewHolder>{
         }
         txtTenSach.setText(String.valueOf(indexsach.getTenSach()));
         txtGiaThue.setText(String.valueOf(indexsach.getGiaThue()));
+        txtNamXB_Up.setText(String.valueOf(indexsach.getNamXB()));
         spnLoaiSach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -175,10 +179,11 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.ViewHolder>{
             public void onClick(View v) {
                 String tenSach = txtTenSach.getText().toString();
                 String giaThue = txtGiaThue.getText().toString();
-
+                String namXB = txtNamXB_Up.getText().toString();
                 indexsach.setTenSach(tenSach);
                 indexsach.setGiaThue(Integer.valueOf(giaThue));
                 indexsach.setMaLoai(index);
+                indexsach.setNamXB(Integer.valueOf(namXB));
 
                 if(tenSach.isEmpty() || giaThue.isEmpty()) {
                     Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();

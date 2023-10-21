@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import anhbvph43899.fpoly.duanmau.DAO.LoaiSachDAO;
 import anhbvph43899.fpoly.duanmau.DAO.SachDAO;
@@ -37,9 +39,11 @@ public class FragQL_Sach extends Fragment {
     ArrayList<Sach> list = new ArrayList<>();
     SachDAO sachDAO;
     LoaiSachDAO loaiSachDAO;
+    ArrayList<Sach> searchList;
     SachAdapter sachAdapter;
-    EditText txtTenSach, txtGiaThue;
-    Spinner spnLoaiSach;
+    EditText txtTenSach, txtGiaThue, txtnamXB;
+    Spinner spnLoaiSach, spnSapXep;
+    SearchView searchView;
     int index;
     public FragQL_Sach() {
         // Required empty public constructor
@@ -63,6 +67,8 @@ public class FragQL_Sach extends Fragment {
         sachDAO = new SachDAO(getContext());
         loaiSachDAO = new LoaiSachDAO(getContext());
         list = sachDAO.selectAll();
+        spnSapXep = view.findViewById(R.id.spnSapXep);
+        searchView = view.findViewById(R.id.searchView);
         sachAdapter = new SachAdapter(getContext(), list);
         //
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -73,6 +79,90 @@ public class FragQL_Sach extends Fragment {
             @Override
             public void onClick(View v) {
                 OpenDialog_Them();
+            }
+        });
+        ArrayList<String> sapXepArr = new ArrayList<>();
+        sapXepArr.add("Mặc định");
+        sapXepArr.add("Giá tăng dần");
+        sapXepArr.add("Giá giảm dần");
+        ArrayAdapter<String> adapterSX = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, sapXepArr);
+        spnSapXep.setAdapter(adapterSX);
+        spnSapXep.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    list = sachDAO.selectAll();
+                    sachAdapter = new SachAdapter(getContext(), list);
+                    rcvSach.setAdapter(sachAdapter);
+                } else if (position == 1) {
+                    sapXepTang();
+                } else if (position == 2) {
+                    sapXepGiam();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchList = new ArrayList<>();
+                if (query.length() > 0) {
+                    for(int i = 0; i < list.size(); i++) {
+                        if(list.get(i).getTenSach().toUpperCase().contains(query.toUpperCase())) {
+                            Sach s = new Sach();
+                            s.setMaSach(list.get(i).getMaSach());
+                            s.setTenSach(list.get(i).getTenSach());
+                            s.setGiaThue(list.get(i).getGiaThue());
+                            s.setTenLoai(list.get(i).getTenLoai());
+                            searchList.add(s);
+                        }
+                    }
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    rcvSach.setLayoutManager(linearLayoutManager);
+                    sachAdapter = new SachAdapter(getContext(), searchList);
+                    rcvSach.setAdapter(sachAdapter);
+                    sachAdapter.notifyDataSetChanged();
+                } else {
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    rcvSach.setLayoutManager(linearLayoutManager);
+                    sachAdapter = new SachAdapter(getContext(), list);
+                    rcvSach.setAdapter(sachAdapter);
+                    sachAdapter.notifyDataSetChanged();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchList = new ArrayList<>();
+                if (newText.length() > 0) {
+                    for(int i = 0; i < list.size(); i++) {
+                        if(list.get(i).getTenSach().toUpperCase().contains(newText.toUpperCase())) {
+                            Sach s = new Sach();
+                            s.setMaSach(list.get(i).getMaSach());
+                            s.setTenSach(list.get(i).getTenSach());
+                            s.setGiaThue(list.get(i).getGiaThue());
+                            s.setTenLoai(list.get(i).getTenLoai());
+                            searchList.add(s);
+                        }
+                    }
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    rcvSach.setLayoutManager(linearLayoutManager);
+                    sachAdapter = new SachAdapter(getContext(), searchList);
+                    rcvSach.setAdapter(sachAdapter);
+                    sachAdapter.notifyDataSetChanged();
+                } else {
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    rcvSach.setLayoutManager(linearLayoutManager);
+                    sachAdapter = new SachAdapter(getContext(), list);
+                    rcvSach.setAdapter(sachAdapter);
+                    sachAdapter.notifyDataSetChanged();
+                }
+                return false;
             }
         });
         return view;
@@ -87,6 +177,7 @@ public class FragQL_Sach extends Fragment {
 
         txtTenSach = view.findViewById(R.id.txtTenSach);
         txtGiaThue = view.findViewById(R.id.txtGiaThue);
+        txtnamXB = view.findViewById(R.id.txtnamXB);
         spnLoaiSach = view.findViewById(R.id.spnLoaiSach);
         ArrayList<LoaiSach> listLS = new ArrayList<>();
         listLS = loaiSachDAO.selectAll();
@@ -112,8 +203,8 @@ public class FragQL_Sach extends Fragment {
             public void onClick(View v) {
                 String tenSach = txtTenSach.getText().toString();
                 String giaThue = txtGiaThue.getText().toString();
-
-                if(tenSach.isEmpty() || giaThue.isEmpty() || loaiSachArr.isEmpty()) {
+                String namXB = txtnamXB.getText().toString();
+                if(tenSach.isEmpty() || giaThue.isEmpty() || loaiSachArr.isEmpty() || namXB.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     if(giaThue.matches("\\d+") == false) {
@@ -121,7 +212,7 @@ public class FragQL_Sach extends Fragment {
                     } else if(Integer.valueOf(giaThue) < 0) {
                         Toast.makeText(getContext(), "Giá tiền phải lớn hơn 0", Toast.LENGTH_SHORT).show();
                     }
-                    else if(sachDAO.insert(new Sach(tenSach, Integer.parseInt(giaThue), index))) {
+                    else if(sachDAO.insert(new Sach(tenSach, Integer.parseInt(giaThue), Integer.valueOf(namXB), index))) {
                         list.clear();
                         list.addAll(sachDAO.selectAll());
                         dialog.dismiss();
@@ -133,5 +224,41 @@ public class FragQL_Sach extends Fragment {
                 }
             }
         });
+    }
+    public void sapXepTang() {
+        Collections.sort(list, new Comparator<Sach>() {
+            @Override
+            public int compare(Sach o1, Sach o2) {
+                if (o1.getGiaThue() > o2.getGiaThue()) {
+                    return 1;
+                } else {
+                    if (o1.getGiaThue() == o2.getGiaThue()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+        sachAdapter = new SachAdapter(getContext(), list);
+        rcvSach.setAdapter(sachAdapter);
+    }
+    public void sapXepGiam() {
+        Collections.sort(list, new Comparator<Sach>() {
+            @Override
+            public int compare(Sach o1, Sach o2) {
+                if (o1.getGiaThue() > o2.getGiaThue()) {
+                    return -1;
+                } else {
+                    if (o1.getGiaThue() == o2.getGiaThue()) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                }
+            }
+        });
+        sachAdapter = new SachAdapter(getContext(), list);
+        rcvSach.setAdapter(sachAdapter);
     }
 }

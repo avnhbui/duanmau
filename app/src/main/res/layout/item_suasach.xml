@@ -57,6 +57,14 @@
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="5dp"
             android:padding="10dp"/>
+        <EditText
+            android:id="@+id/txtNamXB_Up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Năm Xuất Bản"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"/>
             <Button
                 android:id="@+id/btnUpdate_S"
                 android:layout_width="wrap_content"

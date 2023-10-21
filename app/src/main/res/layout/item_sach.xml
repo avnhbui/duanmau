@@ -60,6 +60,13 @@
                 android:textSize="15sp"
 
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Nam XB: "
+
+                android:textSize="15sp" />
 
 
         </LinearLayout>
@@ -106,6 +113,14 @@
                 android:textSize="15sp"
 
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Nam XB: "
+                android:id="@+id/tvnamxb"
+                android:textSize="15sp" />
+
 
         </LinearLayout>
 

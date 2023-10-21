@@ -33,7 +33,8 @@ public class SachDAO {
                     sach.setTenSach(cursor.getString(1));
                     sach.setGiaThue(cursor.getInt(2));
                     sach.setMaLoai(cursor.getInt(3));
-                    sach.setTenLoai(cursor.getString(5));
+                    sach.setNamXB(cursor.getInt(4));
+                    sach.setTenLoai(cursor.getString(6));
                     list.add(sach);
                     cursor.moveToNext();
                 }
@@ -56,7 +57,8 @@ public class SachDAO {
                     sach.setTenSach(cursor.getString(1));
                     sach.setGiaThue(cursor.getInt(2));
                     sach.setMaLoai(cursor.getInt(3));
-                    sach.setTenLoai(cursor.getString(5));
+                    sach.setNamXB(cursor.getInt(4));
+                    sach.setTenLoai(cursor.getString(6));
                     list.add(sach);
                     cursor.moveToNext();
                 }
@@ -72,6 +74,7 @@ public class SachDAO {
         values.put("tenSach", sach.getTenSach());
         values.put("giaThue", sach.getGiaThue());
         values.put("maLoai", sach.getMaLoai());
+        values.put("namXB", sach.getNamXB());
         long row = db.insert("Sach", null, values);
         return (row > 0);
     }
@@ -81,6 +84,7 @@ public class SachDAO {
         values.put("tenSach", sach.getTenSach());
         values.put("giaThue", sach.getGiaThue());
         values.put("maLoai", sach.getMaLoai());
+        values.put("namXB", sach.getNamXB());
         long row = db.update("Sach", values, "maSach = ?", new String[]{String.valueOf(sach.getMaSach())});
         return (row > 0);
     }
